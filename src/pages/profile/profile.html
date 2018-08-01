@@ -1,0 +1,28 @@
+<ion-header>
+
+  <ion-navbar color="dark">
+    <ion-title>profile</ion-title>
+  </ion-navbar>
+
+</ion-header>
+
+
+<ion-content padding>
+
+  <ion-item>
+    <ion-label floating>Identifiant</ion-label>
+    <ion-input [(ngModel)]="profile.username"></ion-input>
+  </ion-item>
+
+  <ion-item>
+    <ion-label floating>Prenom</ion-label>
+    <ion-input [(ngModel)]="profile.firsname"></ion-input>
+  </ion-item>
+
+  <ion-item>
+    <ion-label floating>Nom</ion-label>
+    <ion-input [(ngModel)]="profile.lastname"></ion-input>
+  </ion-item>
+
+  <button ion-button clear block (click)="createProfile()">Creation de compte</button>
+</ion-content>
