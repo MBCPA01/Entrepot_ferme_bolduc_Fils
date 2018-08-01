@@ -7,6 +7,9 @@ import { AngularFireModule } from 'angularfire2';
 import { AngularFireDatabaseModule } from 'angularfire2/database';
 import { AngularFireAuthModule } from 'angularfire2/auth';
 
+import { Network } from '@ionic-native/network';
+import { AlertController } from 'ionic-angular';
+
 import { MyApp } from './app.component';
 import { AuthRequestProvider } from '../providers/auth-request/auth-request';
 import { FirebaseRequestProvider } from '../providers/firebase-request/firebase-request';
@@ -33,6 +36,8 @@ import { FIREBASE_CONFIG } from "./app.firebase.config";
     StatusBar,
     SplashScreen,
     {provide: ErrorHandler, useClass: IonicErrorHandler},
+    Network,
+    AlertController,
     AuthRequestProvider,
     FirebaseRequestProvider
   ]
