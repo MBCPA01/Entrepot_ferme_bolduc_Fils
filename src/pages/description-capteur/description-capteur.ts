@@ -14,8 +14,22 @@ import { IonicPage, NavController, NavParams } from 'ionic-angular';
   templateUrl: 'description-capteur.html',
 })
 export class DescriptionCapteurPage {
+  idexFromHome: number = 0;
 
   constructor(public navCtrl: NavController, public navParams: NavParams) {
+  	let data = navParams.get('idexParam');
+  	
+  	if(data != null){
+  		this.idexFromHome = navParams.get('idexParam');
+  	}
+  }
+
+  modifyDescriptionClick(capteurDescription:string){
+  	console.log(capteurDescription);
+  }
+
+  gotoHomePage(){
+  	this.navCtrl.push('HomePage')
   }
 
   ionViewDidLoad() {

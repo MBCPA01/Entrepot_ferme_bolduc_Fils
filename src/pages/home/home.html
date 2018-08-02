@@ -3,13 +3,29 @@
 
   <ion-navbar color="dark">
   	<ion-title>Page principale</ion-title>
+  	<button ion-button (click)="logoutClicked()" color="primary"> Deconnexion </button>
   </ion-navbar>
 
 </ion-header>
 
 <ion-content>
-	<ion-item *ngFor="let capteur of Capteurs | async; let i = index;">
-		<button clear block (click)="onClickCapteur(capteur.description, i+1)">Temperature capteur {{i+1}}  : {{capteur.value | json}}</button>
-	</ion-item>
-	<button ion-button (click)="logoutClicked()" color="primary"> logout </button>
+	<ion-list class="chat-sliding-demo">
+    	<ion-list-header>
+      		Capteurs
+    	</ion-list-header>
+
+    		<ion-item-sliding *ngFor="let capteur of Capteurs | async; let i = index;" #item>
+      			<ion-item>
+        			<button ion-button clear (click)="onClickCapteur(capteur.description, i+1)">Temperature capteur {{i+1}}  : {{capteur.value | json}}</button>
+      			</ion-item>
+
+      			<ion-item-options>
+        			<button ion-button color="secondary" (click)="descriptionClicked(i+1)">
+          				<ion-icon name="menu"></ion-icon>
+          					Description
+        			</button>
+      			</ion-item-options>
+    		</ion-item-sliding>
+	</ion-list>
+
 </ion-content>

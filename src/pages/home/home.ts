@@ -13,6 +13,7 @@ export class HomePage {
   Capteurs: Observable<any[]>;
   CapteurDescription: Observable<any[]>;
 
+
   constructor(public navCtrl: NavController, public navParams: NavParams,private firebaseRequest : FirebaseRequestProvider, private afauth: AngularFireAuth, private toast: ToastController) {
     this.Capteurs = firebaseRequest.get('Capteurs');
   }
@@ -21,6 +22,10 @@ export class HomePage {
     return this.afauth.auth.signOut().then(() => {
        this.navCtrl.push('LoginPage')
     });;
+  }
+
+  descriptionClicked(Index:number): Promise<any>{
+    return this.navCtrl.push('DescriptionCapteurPage', { 'idexParam': Index });
   }
 
   onClickCapteur(description:JSON, index:Number){
