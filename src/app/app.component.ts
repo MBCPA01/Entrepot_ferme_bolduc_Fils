@@ -5,7 +5,6 @@ import { SplashScreen } from '@ionic-native/splash-screen';
 import { Network } from '@ionic-native/network';
 import { AlertController } from 'ionic-angular';
 
-
 @Component({
   templateUrl: 'app.html'
 })
@@ -23,14 +22,10 @@ export class MyApp {
   }
 
   private listenConnection(): void {
-    if(this.network.onDisconnect()){
-      console.log(this.network.onDisconnect());
-      this.showAlert();
-    }
-    if(this.network.onConnect()){
-      console.log("onConnect");
-      
-    }
+    this.network.onDisconnect()
+      .subscribe(() => {
+        this.showAlert();
+      });
   }
 
   private showAlert(): void {
