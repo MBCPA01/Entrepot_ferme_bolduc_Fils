@@ -11,6 +11,7 @@ import { FirebaseRequestProvider } from '../../providers/firebase-request/fireba
 })
 export class HomePage {
   Capteurs: Observable<any[]>;
+  CapteurDescription: Observable<any[]>;
 
   constructor(public navCtrl: NavController, public navParams: NavParams,private firebaseRequest : FirebaseRequestProvider, private afauth: AngularFireAuth, private toast: ToastController) {
     this.Capteurs = firebaseRequest.get('Capteurs');
@@ -18,8 +19,15 @@ export class HomePage {
 
   async logoutClicked(): Promise<any>{
     return this.afauth.auth.signOut().then(() => {
-       this.navCtrl.setRoot('LoginPage')
+       this.navCtrl.push('LoginPage')
     });;
+  }
+
+  onClickCapteur(description:JSON, index:Number){
+    this.toast.create({
+            message: 'Voici le lieu du capteur ' + index + ' : ' + description ,
+            duration: 3000
+          }).present();
   }
 
   ionViewDidLoad() {
