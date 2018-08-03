@@ -18,9 +18,9 @@ export class HomePage {
     this.Capteurs = firebaseRequest.get('Capteurs');
   }
 
-  async logoutClicked(): Promise<any>{
+  async logoutClicked(){
     return this.afauth.auth.signOut().then(() => {
-       this.navCtrl.push('LoginPage')
+      this.navCtrl.setRoot('LoginPage')
     });;
   }
 
