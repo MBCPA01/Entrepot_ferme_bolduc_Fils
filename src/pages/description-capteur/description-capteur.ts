@@ -1,12 +1,7 @@
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
 
-/**
- * Generated class for the DescriptionCapteurPage page.
- *
- * See https://ionicframework.com/docs/components/#navigation for more info on
- * Ionic pages and navigation.
- */
+import { FirebaseRequestProvider } from '../../providers/firebase-request/firebase-request'; 
 
 @IonicPage()
 @Component({
@@ -14,22 +9,27 @@ import { IonicPage, NavController, NavParams } from 'ionic-angular';
   templateUrl: 'description-capteur.html',
 })
 export class DescriptionCapteurPage {
-  idexFromHome: number = 0;
 
-  constructor(public navCtrl: NavController, public navParams: NavParams) {
+  indexFromHome: number = 0;
+  description:string;
+
+  constructor(public navCtrl: NavController, public navParams: NavParams, private afReq: FirebaseRequestProvider) {
+
+    this.description = '';
+
   	let data = navParams.get('idexParam');
-  	
   	if(data != null){
-  		this.idexFromHome = navParams.get('idexParam');
+  		this.indexFromHome = navParams.get('idexParam');
   	}
+
   }
 
-  modifyDescriptionClick(capteurDescription:string){
-  	console.log(capteurDescription);
+  modifyDescriptionClick(){
+  	this.afReq.set('Capteurs/'+this.indexFromHome+'/description',this.description).then(_ => this.navCtrl.push('HomePage'));
   }
 
   gotoHomePage(){
-  	this.navCtrl.push('HomePage')
+  	this.navCtrl.push('HomePage');
   }
 
   ionViewDidLoad() {

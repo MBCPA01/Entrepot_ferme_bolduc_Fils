@@ -13,8 +13,8 @@ export class FirebaseRequestProvider {
   	return this.afdb.list(url).valueChanges();
   }
 
-  set(){
-
+  set(url:string, value:string){
+  	return this.afdb.object(url).set(value);
   }
 
 }

@@ -14,14 +14,14 @@
 
 
 <ion-content padding>
-	<div *ngIf="idexFromHome">
-		Entrer l'information que vous voulez modifier du capteur : {{idexFromHome}}
+	<div *ngIf="indexFromHome">
+		Entrer l'information que vous voulez modifier du capteur : {{indexFromHome}}
 		<div>
-			<input type="text" ([ngModel])="description">
-			<button ion-button color="primitive" (click)="modifyDescriptionClick(description)">modifier</button>
+			<input type="text" [(ngModel)]="description">
+			<button ion-button color="primitive" (click)="modifyDescriptionClick(description, indexFromHome)">modifier</button>
 		</div>
 	</div>
-	<div *ngIf="!idexFromHome">
+	<div *ngIf="!indexFromHome">
 		Vous navez selectionne aucun capteur a modifier... retour vers: 
 		<div>
 			<button ion-button color="primitive" (click)="gotoHomePage()">ecran principale</button>
