@@ -25,7 +25,7 @@ export class LoginPage {
       const result = this.afauth.auth.signInWithEmailAndPassword(user.email, user.password);
       if(result){
         return result.then(() => {
-          this.navCtrl.push('HomePage');
+          this.navCtrl.setRoot('HomePage');
         });
       }
     }
