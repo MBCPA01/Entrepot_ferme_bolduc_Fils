@@ -1,13 +1,7 @@
-<!--
-  Generated template for the DescriptionCapteurPage page.
-
-  See http://ionicframework.com/docs/components/#navigation for more info on
-  Ionic pages and navigation.
--->
 <ion-header>
 
-  <ion-navbar>
-    <ion-title>descriptionCapteur</ion-title>
+  <ion-navbar color="dark">
+    <ion-title>description Capteur</ion-title>
   </ion-navbar>
 
 </ion-header>
@@ -16,15 +10,19 @@
 <ion-content padding>
 	<div *ngIf="indexFromHome">
 		Entrer l'information que vous voulez modifier du capteur : {{indexFromHome}}
-		<div>
 			<input type="text" [(ngModel)]="description">
-			<button ion-button color="primitive" (click)="modifyDescriptionClick(description, indexFromHome)">modifier</button>
-		</div>
+			<ion-buttons>
+				<button ion-button clear block color="primitive" (click)="modifyDescriptionClick(description, indexFromHome)">
+					modifier
+				</button>
+			</ion-buttons>
 	</div>
 	<div *ngIf="!indexFromHome">
-		Vous navez selectionne aucun capteur a modifier... retour vers: 
+		<p>
+				Vous navez selectionne aucun capteur a modifier... retour vers: 
+		</p>
 		<div>
-			<button ion-button color="primitive" (click)="gotoHomePage()">ecran principale</button>
+			<button ion-button clear block color="primitive" (click)="gotoHomePage()">ecran principale</button>
 		</div>
 	</div>
 </ion-content>

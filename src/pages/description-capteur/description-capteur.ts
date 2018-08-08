@@ -25,11 +25,11 @@ export class DescriptionCapteurPage {
   }
 
   modifyDescriptionClick(){
-  	this.afReq.set('Capteurs/'+this.indexFromHome+'/description',this.description).then(_ => this.navCtrl.push('HomePage'));
+  	this.afReq.set('Capteurs/'+this.indexFromHome+'/description',this.description).then(_ => this.navCtrl.setRoot('HomePage'));
   }
 
   gotoHomePage(){
-  	this.navCtrl.push('HomePage');
+  	this.navCtrl.setRoot('HomePage');
   }
 
   ionViewDidLoad() {

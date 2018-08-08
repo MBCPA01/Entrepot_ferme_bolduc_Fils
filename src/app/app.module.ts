@@ -15,6 +15,7 @@ import { AuthRequestProvider } from '../providers/auth-request/auth-request';
 import { FirebaseRequestProvider } from '../providers/firebase-request/firebase-request';
 
 import { FIREBASE_CONFIG } from "./app.firebase.config";
+import { ToastProvider } from '../providers/toast/toast';
 
 @NgModule({
   declarations: [
@@ -39,7 +40,8 @@ import { FIREBASE_CONFIG } from "./app.firebase.config";
     Network,
     AlertController,
     AuthRequestProvider,
-    FirebaseRequestProvider
+    FirebaseRequestProvider,
+    ToastProvider
   ]
 })
 export class AppModule {}

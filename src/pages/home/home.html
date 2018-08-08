@@ -17,20 +17,19 @@
 </ion-header>
 
 <ion-content>
-	<ion-list class="chat-sliding-demo">
-    		<ion-item-sliding *ngFor="let capteur of Capteurs | async; let i = index;" #item>
-      			<ion-item>
-					<ion-icon padding-top name="thermometer"></ion-icon>
+	<ion-list>
+    	<ion-item-sliding *ngFor="let capteur of Capteurs | async; let i = index;">
+    		<ion-item>
+				<ion-icon padding-top name="thermometer"></ion-icon>
         			<button ion-button clear padding-top (click)="onClickCapteur(capteur.description, i+1)">Temperature capteur {{i+1}}  : {{capteur.value | json}}</button>
       			</ion-item>
 
-      			<ion-item-options>
-        			<button ion-button color="secondary" (click)="descriptionClicked(i+1)">
-          				<ion-icon name="menu"></ion-icon>
-          					Description
-        			</button>
-      			</ion-item-options>
-    		</ion-item-sliding>
+			<ion-item-options>
+    			<button ion-button color="secondary" (click)="descriptionClicked(i+1)">
+     				<ion-icon name="menu"></ion-icon>
+     					Description
+    			</button>
+      		</ion-item-options>
+    	</ion-item-sliding>
 	</ion-list>
-
 </ion-content>

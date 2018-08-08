@@ -3,6 +3,8 @@ import { IonicPage, NavController, NavParams, ToastController } from 'ionic-angu
 import { AngularFireAuth } from 'angularfire2/auth';
 import { Observable } from 'rxjs';
 import { FirebaseRequestProvider } from '../../providers/firebase-request/firebase-request'; 
+import { ToastProvider } from '../../providers/toast/toast';
+import { error } from 'util';
 
 @IonicPage()
 @Component({
@@ -14,7 +16,7 @@ export class HomePage {
   CapteurDescription: Observable<any[]>;
 
 
-  constructor(public navCtrl: NavController, public navParams: NavParams,private firebaseRequest : FirebaseRequestProvider, private afauth: AngularFireAuth, private toast: ToastController) {
+  constructor(private navCtrl: NavController, public navParams: NavParams,private firebaseRequest : FirebaseRequestProvider, private afauth: AngularFireAuth, private toast: ToastProvider) {
     this.Capteurs = firebaseRequest.get('Capteurs');
   }
 
@@ -29,26 +31,16 @@ export class HomePage {
   }
 
   onClickCapteur(description:JSON, index:Number){
-    this.toast.create({
-            message: 'Voici le lieu du capteur ' + index + ' : ' + description ,
-            duration: 3000
-          }).present();
+    this.toast.show('Capteur' + index +' : ' + description);
   }
 
-  ionViewDidLoad() {
+  ionViewWillLoad() {
     this.afauth.authState.subscribe(data =>{
       if( data && data.email && data.uid ){
-          this.toast.create({
-            message: 'Bonjour ' + data.email ,
-            duration: 3000
-          }).present();
-
+          this.toast.show('Bonjour ' + data.email);
       }
       else{
-          this.toast.create({
-            message: 'error:',
-            duration: 3000
-          }).present();
+          this.toast.show('error');
       }
     })
   }
