@@ -1,17 +1,28 @@
 <ion-header>
+
   <ion-navbar color="dark">
     <ion-title>Identification</ion-title>
   </ion-navbar>
+  
 </ion-header>
+
 <ion-content padding>
-  <ion-item>
-    <ion-label floating>Adresse Email</ion-label>
-    <ion-input type="text" [(ngModel)]="user.email"></ion-input>
-  </ion-item>
-  <ion-item>
-    <ion-label floating>Mot de Passe</ion-label>
-    <ion-input type="password" [(ngModel)]="user.password"></ion-input>
-  </ion-item>
-  <button ion-button (click)="login(user)">Connexion</button>
-  <button ion-button (click)="register()">Inscription</button>
+
+  <ion-card>
+    <ion-item>
+      <ion-label floating>Adresse Email</ion-label>
+      <ion-input type="text" [(ngModel)]="user.email"></ion-input>
+    </ion-item>
+    <ion-item>
+      <ion-label floating>Mot de Passe</ion-label>
+      <ion-input type="password" [(ngModel)]="user.password"></ion-input>
+    </ion-item>
+    <ion-row>
+      <div>
+        <button ion-button (click)="register()" color="secondary">Inscription</button>
+        <button ion-button (click)="login()">Connexion</button>
+      </div>
+    </ion-row>
+  </ion-card>
+
 </ion-content>
