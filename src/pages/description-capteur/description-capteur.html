@@ -9,7 +9,7 @@
 
 <ion-content padding>
 	<div *ngIf="indexFromHome">
-		Entrer l'information que vous voulez modifier du capteur : {{indexFromHome}}
+		Entrer l'information que vous voulez modifier de l'item selectioner : {{indexFromHome}}
 			<input type="text" [(ngModel)]="description">
 			<ion-buttons>
 				<button ion-button clear block color="primitive" (click)="modifyDescriptionClick(description, indexFromHome)">

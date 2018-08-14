@@ -7,29 +7,64 @@
 		</ion-title>
 
 		<ion-buttons end>
+			<button ion-button (click)="alarmClicked()" [color]="(Alarm | async) ? 'danger' : 'primary'">
+				<ion-icon name="alert"></ion-icon>
+			</button>
 			<button ion-button (click)="logoutClicked()" color="primary">
 				<ion-icon name="log-out"></ion-icon>
 			</button>
-		</ion-buttons>
-
+		</ion-buttons>	
+		
+		
   </ion-navbar>
 
 </ion-header>
 
 <ion-content>
 	<ion-list>
-    	<ion-item-sliding *ngFor="let capteur of Capteurs | async; let i = index;">
-    		<ion-item>
-				<ion-icon padding-top name="thermometer"></ion-icon>
-        			<button ion-button clear padding-top (click)="onClickCapteur(capteur.description, i+1)">Temperature capteur {{i+1}}  : {{capteur.value | json}}</button>
-      			</ion-item>
-
-			<ion-item-options>
-    			<button ion-button color="secondary" (click)="descriptionClicked(i+1)">
-     				<ion-icon name="menu"></ion-icon>
-     					Description
-    			</button>
-      		</ion-item-options>
-    	</ion-item-sliding>
+		<ion-item>
+			<ion-label>Selection Item</ion-label>
+			<ion-select [(ngModel)]="menu">
+				<ion-option value="Capteurs" >Sondes</ion-option>
+				<ion-option value="Fans">Fans</ion-option>
+			</ion-select>
+		</ion-item>
 	</ion-list>
+	
+	<div [ngSwitch] = "menu">
+		<ion-list *ngSwitchCase="'Capteurs'">
+			<ion-item-sliding *ngFor="let capteur of Capteurs | async; let i = index;">
+				<ion-item>
+					<ion-icon padding-top name="thermometer"></ion-icon>
+						<button ion-button clear padding-top (click)="onClickItemList(capteur.description, i+1)">Temperature sonde {{i+1}}  : {{capteur.value | json}} °C</button>
+					  </ion-item>
+	
+				<ion-item-options>
+					<button ion-button color="secondary" (click)="descriptionClicked(menu,i+1)">
+						 <ion-icon name="menu"></ion-icon>
+							 Description
+					</button>
+				  </ion-item-options>
+			</ion-item-sliding>
+		</ion-list>
+	</div>
+
+	<div [ngSwitch] = "menu">
+			<ion-list *ngSwitchCase="'Fans'">
+				<ion-item-sliding *ngFor="let fan of Fans | async; let i = index;">
+					<ion-item>
+						<img src="../../assets/imgs/fan.png" alt="fan" class="fan">
+							<button ion-button clear padding-top (click)="onClickItemList(fan.description, i+1)"> fan {{i+1}}  : {{fan.value | json}}</button>
+						  </ion-item>
+		
+					<ion-item-options>
+						<button ion-button color="secondary" (click)="descriptionClicked(menu,i+1)">
+							 <ion-icon name="menu"></ion-icon>
+								 Description
+						</button>
+					  </ion-item-options>
+				</ion-item-sliding>
+			</ion-list>
+		</div>
+
 </ion-content>

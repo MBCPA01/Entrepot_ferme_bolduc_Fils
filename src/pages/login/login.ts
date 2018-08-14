@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Output } from '@angular/core';
+import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
 import { User } from '../../models/user';
 import { AngularFireAuth } from "angularfire2/auth";
@@ -11,13 +11,13 @@ import { ToastProvider } from '../../providers/toast/toast';
   selector: 'page-login',
   templateUrl: 'login.html',
 })
+
 export class LoginPage {
 
   user = {} as User;
-  @Output() loginStatus: EventEmitter<any>;
 
-  constructor(private toast: ToastProvider, private navCtrl: NavController, private navParams: NavParams, private afauth: AngularFireAuth) {
-    this.loginStatus = new EventEmitter<any>();
+  constructor(private toast: ToastProvider, private navCtrl: NavController, private afauth: AngularFireAuth) {
+
   }
 
   ionViewDidLoad() {
@@ -27,14 +27,13 @@ export class LoginPage {
   async login(): Promise<any>{
     try{
       const result = await this.afauth.auth.signInWithEmailAndPassword(this.user.email, this.user.password);
-        this.toast.show("Succes");
-        this.loginStatus.emit(result);
-        console.log(result);
+        this.navCtrl.setRoot('HomePage');
+        console.log(result.user.email);
       }
     catch(e){
       console.error(e);
       this.toast.show(e.message);
-      this.loginStatus.emit(e);
+      console.log(e); 
     }
   }
 

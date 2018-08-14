@@ -1,13 +1,13 @@
 import { NgModule } from '@angular/core';
 import { IonicPageModule } from 'ionic-angular';
-import { DescriptionCapteurPage } from './description-capteur';
+import { DescriptionPage } from './description-capteur';
 
 @NgModule({
   declarations: [
-    DescriptionCapteurPage,
+    DescriptionPage,
   ],
   imports: [
-    IonicPageModule.forChild(DescriptionCapteurPage),
+    IonicPageModule.forChild(DescriptionPage),
   ],
 })
 export class DescriptionCapteurPageModule {}

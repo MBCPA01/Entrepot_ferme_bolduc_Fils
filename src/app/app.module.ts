@@ -17,6 +17,7 @@ import { FirebaseRequestProvider } from '../providers/firebase-request/firebase-
 import { FIREBASE_CONFIG } from "./app.firebase.config";
 import { ToastProvider } from '../providers/toast/toast';
 
+
 @NgModule({
   declarations: [
     MyApp
