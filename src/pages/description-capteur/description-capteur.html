@@ -1,6 +1,6 @@
 <ion-header>
 
-  <ion-navbar color="dark">
+  <ion-navbar color="primary">
     <ion-title>description Capteur</ion-title>
   </ion-navbar>
 
@@ -8,21 +8,21 @@
 
 
 <ion-content padding>
-	<div *ngIf="indexFromHome">
-		Entrer l'information que vous voulez modifier de l'item selectioner : {{indexFromHome}}
+	<div *ngIf="indexFromTabs">
+		Entrer l'information que vous voulez modifier de l'item selectioner : {{indexFromTabs}}
 			<input type="text" [(ngModel)]="description">
 			<ion-buttons>
-				<button ion-button clear block color="primitive" (click)="modifyDescriptionClick(description, indexFromHome)">
+				<button ion-button clear block color="primitive" (click)="modifyDescriptionClick(description, indexFromTabs)">
 					modifier
 				</button>
 			</ion-buttons>
 	</div>
-	<div *ngIf="!indexFromHome">
+	<div *ngIf="!indexFromTabs">
 		<p>
 				Vous navez selectionne aucun capteur a modifier... retour vers: 
 		</p>
 		<div>
-			<button ion-button clear block color="primitive" (click)="gotoHomePage()">ecran principale</button>
+			<button ion-button clear block color="primitive" (click)="returnToTabsPage()">ecran principale</button>
 		</div>
 	</div>
 </ion-content>

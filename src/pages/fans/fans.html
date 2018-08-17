@@ -1,0 +1,26 @@
+<ion-header>
+
+	<ion-navbar color="primary">
+		<ion-title>Systeme de ventilation</ion-title>
+	</ion-navbar>
+
+</ion-header>
+
+
+<ion-content padding>
+	<ion-list>
+		<ion-item-sliding *ngFor="let fan of Fans | async; let i = index;">
+			<ion-item>
+				<img src="../../assets/imgs/fan.png" alt="fan" class="fan">
+				<button ion-button clear padding-top (click)="onClickItemList(fan.description, i+1)"> fan {{i+1}} : {{fan.value | json}}</button>
+			</ion-item>
+
+			<ion-item-options>
+				<button ion-button color="secondary" (click)="descriptionClicked(i+1)">
+					<ion-icon name="menu"></ion-icon>
+					Description
+				</button>
+			</ion-item-options>
+		</ion-item-sliding>
+	</ion-list>
+</ion-content>

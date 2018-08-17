@@ -1,0 +1,28 @@
+<ion-header>
+
+	<ion-navbar color="primary">
+		<ion-title>
+			Sondes de temperature
+		</ion-title>
+	</ion-navbar>
+
+</ion-header>
+
+<ion-content padding>
+	<ion-list>
+		<ion-item-sliding *ngFor="let capteur of Capteurs | async; let i = index;">
+			<ion-item>
+				<ion-icon padding-top name="thermometer"></ion-icon>
+				<button ion-button clear padding-top (click)="onClickItemList(capteur.description, i+1)">Temperature sonde {{i+1}} :
+					{{capteur.value | json}} °C</button>
+			</ion-item>
+
+			<ion-item-options>
+				<button ion-button color="secondary" (click)="descriptionClicked(i+1)">
+					<ion-icon name="menu"></ion-icon>
+					Description
+				</button>
+			</ion-item-options>
+		</ion-item-sliding>
+	</ion-list>
+</ion-content>

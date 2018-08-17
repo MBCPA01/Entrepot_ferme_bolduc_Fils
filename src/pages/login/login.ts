@@ -4,6 +4,7 @@ import { User } from '../../models/user';
 import { AngularFireAuth } from "angularfire2/auth";
 
 import { ToastProvider } from '../../providers/toast/toast';
+import { TabsPage } from '../tabs/tabs';
 
 
 @IonicPage()
@@ -24,10 +25,14 @@ export class LoginPage {
     console.log('ionViewDidLoad LoginPage');
   }
 
+  navigateToPage(pageName:string){
+    pageName === 'TabsPage' ? this.navCtrl.setRoot(pageName) : this.navCtrl.push(pageName);
+  }
+
   async login(): Promise<any>{
     try{
       const result = await this.afauth.auth.signInWithEmailAndPassword(this.user.email, this.user.password);
-        this.navCtrl.setRoot('HomePage');
+        this.navigateToPage('TabsPage');
         console.log(result.user.email);
       }
     catch(e){
@@ -35,9 +40,5 @@ export class LoginPage {
       this.toast.show(e.message);
       console.log(e); 
     }
-  }
-
-  register(){
-    this.navCtrl.push('RegisterPage');
   }
 }

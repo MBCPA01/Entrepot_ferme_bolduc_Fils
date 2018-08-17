@@ -23,7 +23,7 @@ export class ProfilePage {
 
   createProfile(){
     this.afauth.authState.subscribe(auth =>{
-      this.afdb.object('profile/' + auth.uid).set(this.profile).then(()=>this.navCtrl.push('HomePage'))
+      this.afdb.object('profile/' + auth.uid).set(this.profile).then(()=>this.navCtrl.setRoot('TabsPage'))
     })
   }
 }

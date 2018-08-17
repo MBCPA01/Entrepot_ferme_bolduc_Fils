@@ -10,8 +10,9 @@ import { FirebaseRequestProvider } from '../../providers/firebase-request/fireba
 })
 export class DescriptionPage {
 
-  indexFromHome: number = 0;
-  menuItemSelFromHome: string = "";
+  indexFromTabs: number = 0;
+  itemPage: string = "";
+  prevPage: string = "";
   description:string;
 
   constructor(public navCtrl: NavController, public navParams: NavParams, private afReq: FirebaseRequestProvider) {
@@ -20,18 +21,18 @@ export class DescriptionPage {
 
   	let data = navParams.get('idexParam');
   	if(data != null){
-      this.indexFromHome = navParams.get('idexParam');
-      this.menuItemSelFromHome = navParams.get('menuItemSelParam');
+      this.indexFromTabs = navParams.get('idexParam');
+      this.itemPage = navParams.get('PageItem');
+      this.prevPage = navParams.get('PrevPage');
   	}
-
   }
 
   modifyDescriptionClick(){
-  	this.afReq.set(this.menuItemSelFromHome+'/'+this.indexFromHome+'/description',this.description).then(_ => this.navCtrl.setRoot('HomePage'));
+  	this.afReq.set(this.itemPage+'/'+this.indexFromTabs+'/description',this.description).then(_ => this.returnToTabsPage());
   }
 
-  gotoHomePage(){
-  	this.navCtrl.setRoot('HomePage');
+  returnToTabsPage(){
+  	this.navCtrl.setRoot(this.prevPage);
   }
 
   ionViewDidLoad() {
