@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams } from 'ionic-angular';
+import { IonicPage, NavController, NavParams, AlertController } from 'ionic-angular';
 import { Observable } from 'rxjs';
 import { FirebaseRequestProvider } from '../../providers/firebase-request/firebase-request'; 
 import { ToastProvider } from '../../providers/toast/toast';
@@ -12,9 +12,15 @@ import { ToastProvider } from '../../providers/toast/toast';
 export class TemperaturePage {
 
   Capteurs: Observable<any[]>;
+  testRadioOpen: boolean;
+  selectionSection: string;
+  selectionEntrepot: string;
 
-  constructor(private navCtrl: NavController, public navParams: NavParams,private firebaseRequest : FirebaseRequestProvider, private toast: ToastProvider) {
-    this.Capteurs = firebaseRequest.get('Capteurs');
+  constructor(public alerCtrl: AlertController, private navCtrl: NavController, public navParams: NavParams,private firebaseRequest : FirebaseRequestProvider, private toast: ToastProvider) {
+    this.Capteurs = firebaseRequest.get('Capteurs')
+    this.selectionSection = '';
+    this.selectionEntrepot = '';
+    
   }
 
   descriptionClicked(Index:number): Promise<any>{
@@ -24,4 +30,5 @@ export class TemperaturePage {
   onClickItemList(description:JSON, index:Number){
       this.toast.show('Capteur ' + index +' : ' + description);
   }
+
 }

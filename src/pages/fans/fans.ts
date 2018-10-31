@@ -12,9 +12,13 @@ import { ToastProvider } from '../../providers/toast/toast';
 export class FansPage {
 
   Fans: Observable<any[]>;
+  selectionSection: string;
+  selectionEntrepot: string;
 
   constructor(private navCtrl: NavController, public navParams: NavParams,private firebaseRequest : FirebaseRequestProvider, private toast: ToastProvider) {
     this.Fans = firebaseRequest.get('Fans');
+    this.selectionSection = '';
+    this.selectionEntrepot = '';
   }
 
   descriptionClicked(Index:number): Promise<any>{

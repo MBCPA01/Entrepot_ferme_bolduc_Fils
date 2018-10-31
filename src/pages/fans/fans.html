@@ -8,19 +8,44 @@
 
 
 <ion-content padding>
-	<ion-list>
-		<ion-item-sliding *ngFor="let fan of Fans | async; let i = index;">
-			<ion-item>
-				<img src="../../assets/imgs/fan.png" alt="fan" class="fan">
-				<button ion-button clear padding-top (click)="onClickItemList(fan.description, i+1)"> fan {{i+1}} : {{fan.value | json}}</button>
-			</ion-item>
+		<ion-item>
+			<ion-label>Entrepot</ion-label>
+				<ion-select [(ngModel)]="selectionEntrepot">
+				<ion-option value="ep">Peribonka</ion-option>
+				<ion-option value="estm">St-Margerite</ion-option>
+				</ion-select>
+		</ion-item>
+		
+		<ion-item>	
+			<ion-label>Section</ion-label>
+				<ion-select [(ngModel)]="selectionSection">
+				<ion-option value="sv">Village</ion-option>
+				<ion-option value="sp">Pompe</ion-option>
+		</ion-select>
+	</ion-item>
 
-			<ion-item-options>
-				<button ion-button color="secondary" (click)="descriptionClicked(i+1)">
-					<ion-icon name="menu"></ion-icon>
-					Description
-				</button>
-			</ion-item-options>
-		</ion-item-sliding>
+	<ion-list>
+		<div *ngIf="selectionEntrepot == 'ep' && selectionSection == 'sv'">		
+			<ion-item-sliding *ngFor="let fan of Fans | async; let i = index;">
+				<ion-item>
+					<img src="../../assets/imgs/fan.png" alt="fan" class="fan">
+					<button ion-button clear padding-top (click)="onClickItemList(fan.description, i+1)"> fan {{i+1}} : {{fan.value | json}}</button>
+				</ion-item>
+
+				<ion-item-options>
+					<button ion-button color="secondary" (click)="descriptionClicked(i+1)">
+						<ion-icon name="menu"></ion-icon>
+						Description
+					</button>
+				</ion-item-options>
+			</ion-item-sliding>
+		</div>
+
+		<div *ngIf="selectionEntrepot == 'ep' && selectionSection == 'sp'"></div>
+				
+		<div *ngIf="selectionEntrepot == 'estm' && selectionSection == 'sv'"></div>
+				
+		<div *ngIf="selectionEntrepot == 'estm' && selectionSection == 'sp'"></div>
+
 	</ion-list>
 </ion-content>
