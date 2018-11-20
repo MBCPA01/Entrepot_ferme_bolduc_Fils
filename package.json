@@ -10,6 +10,10 @@
     "build": "ionic-app-scripts build",
     "lint": "ionic-app-scripts lint"
   },
+  "engines": {
+    "node": "5.0.0",
+    "npm": "4.6.1"
+  },
   "dependencies": {
     "@angular/animations": "5.2.11",
     "@angular/common": "5.2.11",
