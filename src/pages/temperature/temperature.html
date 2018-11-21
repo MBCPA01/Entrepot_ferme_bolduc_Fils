@@ -37,8 +37,16 @@
 					<ion-icon name="menu"></ion-icon>
 					Description
 				</button>
+				<button ion-button color="secondary" (click)="statsClicked(i+1)">
+					<ion-icon name="analytics"></ion-icon>
+					Statistiques
+				</button>
 			</ion-item-options>
+
 		</ion-item-sliding>
 	</div>
+	<div *ngIf="selectionEntrepot == 'ep' && selectionSection == 'sp'"></div>
+	<div *ngIf="selectionEntrepot == 'estm' && selectionSection == 'sv'"></div>
+	<div *ngIf="selectionEntrepot == 'estm' && selectionSection == 'sp'"></div>
 	</ion-list>
 </ion-content>

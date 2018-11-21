@@ -1,29 +1,33 @@
-<ion-header>
-
-  <ion-navbar color="primary">
-    <ion-title>Identification</ion-title>
-  </ion-navbar>
-  
-</ion-header>
-
 <ion-content padding>
-  
-  <img src="../../assets/imgs/loginLogo.png" alt="logo" class="logo">
-  <ion-card>
-    <ion-item>
-      <ion-label floating>Adresse Email</ion-label>
-      <ion-input type="text" [(ngModel)]="user.email"></ion-input>
-    </ion-item>
-    <ion-item>
-      <ion-label floating>Mot de Passe</ion-label>
-      <ion-input type="password" [(ngModel)]="user.password"></ion-input>
-    </ion-item>
-    <ion-row>
-      <div>
-        <button ion-button (click)="navigateToPage('RegisterPage')" color="secondary">Inscription</button>
-        <button ion-button (click)="login()">Connexion</button>
-      </div>
-    </ion-row>
-  </ion-card>
-
+  <div class="title">Connexion</div>
+  <div padding>
+    <form [formGroup]="form" (ngSubmit)="signInWithEmail()">
+      <ion-item>
+        <ion-input type="email" placeholder="Email" formControlName="email"></ion-input>
+      </ion-item>
+      <ion-item>
+        <ion-input type="password" placeholder="Mot de passe" formControlName="password"></ion-input>
+      </ion-item>
+      <button ion-button block outline color="primary" class="signin-button" 
+        type="submit" [disabled]="!form.valid">
+        Se connecter
+      </button>
+    </form>
+    <p class="forgot-password" (click)="navigateTo('Password')">Mot de passe oublié?</p>
+    <p ion-text color="danger" *ngIf="hasError">{{errorMessage}}</p>
+  </div>
+  <div class="strike">
+    <span>OU</span>
+  </div>
+  <button ion-button block clear (click)="signInWithFacebook()" color="light" class="facebook-button">
+    <ion-icon name="logo-facebook"></ion-icon> Connectez-vous avec Facebook
+  </button>
 </ion-content>
+
+<ion-footer>
+  <ion-toolbar class="footer">
+    <div (click)="navigateTo('RegisterPage')">
+      <span>Vous n'avez pas de compte? <strong></strong>.</span>
+    </div>
+  </ion-toolbar>
+</ion-footer>

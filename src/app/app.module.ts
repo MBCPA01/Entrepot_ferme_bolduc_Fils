@@ -16,6 +16,13 @@ import { FirebaseRequestProvider } from '../providers/firebase-request/firebase-
 
 import { FIREBASE_CONFIG } from "./app.firebase.config";
 import { ToastProvider } from '../providers/toast/toast';
+import { AuthProvider } from '../providers/auth/auth';
+import { DataProvider } from '../providers/data/data';
+import { FunctionsProvider } from '../providers/functions/functions';
+import { Facebook } from '@ionic-native/facebook';
+import { AngularFireDatabase } from 'angularfire2/database-deprecated';
+import { HttpModule } from '@angular/http';
+import { IonicStorageModule } from '@ionic/storage';
 
 
 @NgModule({
@@ -26,9 +33,11 @@ import { ToastProvider } from '../providers/toast/toast';
     BrowserModule,
     IonicModule.forRoot(MyApp),
     AngularFireModule.initializeApp(FIREBASE_CONFIG),
+    IonicStorageModule.forRoot(),
     AngularFireAuthModule,
     AngularFireDatabaseModule,
-    AngularFireAuthModule
+    AngularFireAuthModule,
+    HttpModule
   ],
   bootstrap: [IonicApp],
   entryComponents: [
@@ -42,7 +51,12 @@ import { ToastProvider } from '../providers/toast/toast';
     AlertController,
     AuthRequestProvider,
     FirebaseRequestProvider,
-    ToastProvider
+    ToastProvider,
+    AuthProvider,
+    DataProvider,
+    FunctionsProvider,
+    Facebook,
+    AngularFireDatabase
   ]
 })
 export class AppModule {}

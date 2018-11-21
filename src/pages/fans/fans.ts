@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams } from 'ionic-angular';
+import { IonicPage, NavController } from 'ionic-angular';
 import { Observable } from 'rxjs';
 import { FirebaseRequestProvider } from '../../providers/firebase-request/firebase-request'; 
 import { ToastProvider } from '../../providers/toast/toast';
@@ -15,7 +15,7 @@ export class FansPage {
   selectionSection: string;
   selectionEntrepot: string;
 
-  constructor(private navCtrl: NavController, public navParams: NavParams,private firebaseRequest : FirebaseRequestProvider, private toast: ToastProvider) {
+  constructor(private navCtrl: NavController,private firebaseRequest : FirebaseRequestProvider, private toast: ToastProvider) {
     this.Fans = firebaseRequest.get('Fans');
     this.selectionSection = '';
     this.selectionEntrepot = '';

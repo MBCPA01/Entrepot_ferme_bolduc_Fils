@@ -1,10 +1,10 @@
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams } from 'ionic-angular';
-import { User } from '../../models/user';
-import { AngularFireAuth } from "angularfire2/auth";
+import { IonicPage, NavController } from 'ionic-angular';
 
-import { ToastProvider } from '../../providers/toast/toast';
-import { TabsPage } from '../tabs/tabs';
+import { LoadingController } from 'ionic-angular';
+import { Validators, FormBuilder, FormGroup } from '@angular/forms';
+import { AuthProvider } from '../../providers/auth/auth';
+
 
 
 @IonicPage()
@@ -14,31 +14,62 @@ import { TabsPage } from '../tabs/tabs';
 })
 
 export class LoginPage {
+  form : FormGroup;
+  hasError: boolean;
+  errorMessage: string;
 
-  user = {} as User;
-
-  constructor(private toast: ToastProvider, private navCtrl: NavController, private afauth: AngularFireAuth) {
-
+  constructor(
+    private navCtrl: NavController,
+    private loadingCtrl: LoadingController,
+    private formBuilder: FormBuilder,
+    private auth: AuthProvider
+  ) {
+    this.form = this.formBuilder.group({
+      email: ['', Validators.required],
+      password: ['', Validators.required]
+    });
   }
 
-  ionViewDidLoad() {
-    console.log('ionViewDidLoad LoginPage');
-  }
+  signInWithEmail() {
+    const loading = this.loadingCtrl.create({
+      content: "S'il vous plaît, attendez ..."
+    });
+    loading.present();
 
-  navigateToPage(pageName:string){
-    pageName === 'TabsPage' ? this.navCtrl.setRoot(pageName) : this.navCtrl.push(pageName);
-  }
-
-  async login(): Promise<any>{
-    try{
-      const result = await this.afauth.auth.signInWithEmailAndPassword(this.user.email, this.user.password);
-        this.navigateToPage('TabsPage');
-        console.log(result.user.email);
+    this.auth.signInWithEmailAndPassword(this.form.value.email, this.form.value.password)
+    .then(() => {
+      loading.dismiss();
+      this.navCtrl.setRoot('TabsPage');
+    }, (error) => {
+      loading.dismiss();
+      switch (error.code) {
+        case 'auth/invalid-email':
+          this.errorMessage = "S'il vous plaît entrer une adresse email valide.";
+          break;
+        case 'auth/wrong-password':
+          this.errorMessage = "Combinaison nom d'utilisateur / mot de passe incorrecte.";
+          break;
+        case 'auth/user-not-found':
+          this.errorMessage = "Combinaison nom d'utilisateur / mot de passe incorrecte.";
+          break;
+        default:
+          this.errorMessage = error;
+          break;
       }
-    catch(e){
-      console.error(e);
-      this.toast.show(e.message);
-      console.log(e); 
-    }
+      this.hasError = true;
+    });
+  }
+
+  signInWithFacebook() {
+    this.auth.signInWithFacebook()
+    .then(() => {
+      this.navCtrl.setRoot('TabsPage');
+    }, (error) => {
+      console.log(error);
+    });
+  }
+
+  navigateTo(page) {
+    this.navCtrl.push(page);
   }
 }
