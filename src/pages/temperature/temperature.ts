@@ -32,7 +32,7 @@ export class TemperaturePage {
   }
   
   statsClicked(Index:number): Promise<any>{
-    return this.navCtrl.push('StatistiquesPage', { 'PrevPage': 'home', 'PageItem': 'Capteurs','idexParam': Index });
+    return this.navCtrl.push('StatistiquesPage', { 'PrevPage': 'TemperaturePage', 'PageItem': 'Capteurs','idexParam': Index });
   }
 
 }

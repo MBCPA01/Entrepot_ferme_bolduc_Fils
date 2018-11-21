@@ -1,4 +1,4 @@
-import { IonicPage, NavController } from 'ionic-angular';
+import { IonicPage, NavController, NavParams } from 'ionic-angular';
 
 import { Component, ViewChild } from '@angular/core';
 import { AngularFireDatabase } from 'angularfire2/database';
@@ -22,6 +22,11 @@ export class StatistiquesPage {
   data: Observable<any[]>;
   ref: any;
 
+  indexFromTabs: number = 0;
+  itemPage: string = "";
+  prevPage: string = "";
+  description:string;
+
   months = [
     { value: 0, name: 'January' },
     { value: 1, name: 'February' },
@@ -40,7 +45,15 @@ export class StatistiquesPage {
 
   chartData = null;
 
-  constructor(public navCtrl: NavController, private db: AngularFireDatabase, private toastCtrl: ToastController) {
+  constructor(public navCtrl: NavController, public navParams: NavParams, private db: AngularFireDatabase, private toastCtrl: ToastController) {
+
+    let data = navParams.get('idexParam');
+  	if(data != null){
+      this.indexFromTabs = navParams.get('idexParam');
+      this.itemPage = navParams.get('PageItem');
+      this.prevPage = navParams.get('PrevPage');
+    }
+    
   }
 
   ionViewDidLoad() {
