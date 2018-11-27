@@ -1,7 +1,7 @@
 <ion-header>
 
   <ion-navbar color="primary">
-    <ion-title>description Capteur</ion-title>
+    <ion-title>Description</ion-title>
   </ion-navbar>
 
 </ion-header>
@@ -10,7 +10,7 @@
 <ion-content padding>
 	<div *ngIf="indexFromTabs">
 		Entrer l'information que vous voulez modifier de l'item selectioner : {{indexFromTabs}}
-			<input type="text" [(ngModel)]="description">
+			<input type="text" [(ngModel)]="description" clear block>
 			<ion-buttons>
 				<button ion-button clear block color="primitive" (click)="modifyDescriptionClick(description, indexFromTabs)">
 					modifier
