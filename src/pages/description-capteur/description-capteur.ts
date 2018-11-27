@@ -13,6 +13,8 @@ export class DescriptionPage {
   indexFromTabs: number = 0;
   itemPage: string = "";
   prevPage: string = "";
+  entrepotSelection: string = "";
+  sectionSelection: string = "";
   description:string;
 
   constructor(public navCtrl: NavController, public navParams: NavParams, private afReq: FirebaseRequestProvider) {
@@ -24,11 +26,13 @@ export class DescriptionPage {
       this.indexFromTabs = navParams.get('idexParam');
       this.itemPage = navParams.get('PageItem');
       this.prevPage = navParams.get('PrevPage');
+      this.entrepotSelection = navParams.get('SelectionVille');
+      this.sectionSelection = navParams.get('SelectionSection');
   	}
   }
 
   modifyDescriptionClick(){
-  	this.afReq.set(this.itemPage+'/'+this.indexFromTabs+'/description',this.description).then(_ => this.returnToTabsPage());
+  	this.afReq.set(this.itemPage+'/'+this.entrepotSelection+'/'+this.sectionSelection+'/'+this.indexFromTabs+'/Description',this.description).then(_ => this.returnToTabsPage());
   }
 
   returnToTabsPage(){

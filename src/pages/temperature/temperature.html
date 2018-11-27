@@ -11,50 +11,45 @@
 <ion-content padding>
 	<ion-item>
 		<ion-label>Entrepot</ion-label>
-		<ion-select [(ngModel)]="selectionEntrepot">
-		  <ion-option value="ep">Peribonka</ion-option>
-		  <ion-option value="estm">St-Margerite</ion-option>
+		<ion-select [(ngModel)]="selectionEntrepot" (ionChange)="onSelectEntrepotChange($event)">
+		  <ion-option value="Peribonka">Peribonka</ion-option>
+		  <ion-option value="StMrg">St-Margerite</ion-option>
 		</ion-select>
 	</ion-item>
 	<ion-item>	
 		<ion-label>Section</ion-label>
-			<ion-select [(ngModel)]="selectionSection">
-				<div *ngIf="selectionEntrepot == 'ep'">
-					<ion-option value="abcd">Section ABCD</ion-option>
-					<ion-option value="efg">Section EFG</ion-option>
-					<ion-option value="atrP">Autre</ion-option>
+			<ion-select [(ngModel)]="selectionSection" (ionChange)="onSelectSectionChange($event)">
+				<div *ngIf="selectionEntrepot == 'Peribonka'">
+					<ion-option value="ABCD">Section ABCD</ion-option>
+					<ion-option value="EFG">Section EFG</ion-option>
+					<ion-option value="AutreP">Autre</ion-option>
 				</div>
-				<div *ngIf="selectionEntrepot == 'estm'">
-					<ion-option value="pmp">Section Pompe</ion-option>
-					<ion-option value="efg">Section Village</ion-option>
-					<ion-option value="atrSTM">Autre</ion-option>
+				<div *ngIf="selectionEntrepot == 'StMrg'">
+					<ion-option value="Pompe">Section Pompe</ion-option>
+					<ion-option value="Village">Section Village</ion-option>
+					<ion-option value="AutreSTM">Autre</ion-option>
 				</div>
 			</ion-select>	
   	</ion-item>
 	<ion-list>
-	<div *ngIf="selectionEntrepot == 'ep' && selectionSection == 'abcd'">
-		<ion-item-sliding *ngFor="let capteur of Capteurs | async; let i = index;">
-			<ion-item>
-				<ion-icon padding-top name="thermometer"></ion-icon>
-				<button ion-button clear padding-top (click)="onClickItemList(capteur.description, i+1)">Temperature sonde {{i+1}} :
-					{{capteur.value | json}} °C</button>
-			</ion-item>
-
-			<ion-item-options>
-				<button ion-button color="secondary" (click)="descriptionClicked(i+1)">
-					<ion-icon name="menu"></ion-icon>
-					Description
-				</button>
-				<button ion-button color="secondary" (click)="statsClicked(i+1)">
-					<ion-icon name="analytics"></ion-icon>
-					Statistiques
-				</button>
-			</ion-item-options>
-
-		</ion-item-sliding>
-	</div>
-	<div *ngIf="selectionEntrepot == 'ep' && selectionSection == 'sp'"></div>
-	<div *ngIf="selectionEntrepot == 'estm' && selectionSection == 'sv'"></div>
-	<div *ngIf="selectionEntrepot == 'estm' && selectionSection == 'sp'"></div>
+			<ion-item-sliding *ngFor="let capteur of Capteurs | async; let i = index;">
+					<ion-item>
+						<ion-icon padding-top name="thermometer"></ion-icon>
+						<button ion-button clear padding-top (click)="onClickItemList(capteur.Description, i+1)">Temperature sonde {{i+1}} :
+							{{capteur.value | json}} °C</button>
+					</ion-item>
+		
+					<ion-item-options>
+						<button ion-button color="secondary" (click)="descriptionClicked(i+1)">
+							<ion-icon name="menu"></ion-icon>
+							Description
+						</button>
+						<button ion-button color="secondary" (click)="statsClicked(i+1)">
+							<ion-icon name="analytics"></ion-icon>
+							Statistiques
+						</button>
+					</ion-item-options>
+		
+				</ion-item-sliding>
 	</ion-list>
 </ion-content>
