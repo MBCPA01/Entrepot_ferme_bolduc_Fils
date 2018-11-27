@@ -18,13 +18,21 @@
 	</ion-item>
 	<ion-item>	
 		<ion-label>Section</ion-label>
-		<ion-select [(ngModel)]="selectionSection">
-		  <ion-option value="sv">Village</ion-option>
-		  <ion-option value="sp">Pompe</ion-option>
-		</ion-select>
+			<ion-select [(ngModel)]="selectionSection">
+				<div *ngIf="selectionEntrepot == 'ep'">
+					<ion-option value="abcd">Section ABCD</ion-option>
+					<ion-option value="efg">Section EFG</ion-option>
+					<ion-option value="atrP">Autre</ion-option>
+				</div>
+				<div *ngIf="selectionEntrepot == 'estm'">
+					<ion-option value="pmp">Section Pompe</ion-option>
+					<ion-option value="efg">Section Village</ion-option>
+					<ion-option value="atrSTM">Autre</ion-option>
+				</div>
+			</ion-select>	
   	</ion-item>
 	<ion-list>
-	<div *ngIf="selectionEntrepot == 'ep' && selectionSection == 'sv'">
+	<div *ngIf="selectionEntrepot == 'ep' && selectionSection == 'abcd'">
 		<ion-item-sliding *ngFor="let capteur of Capteurs | async; let i = index;">
 			<ion-item>
 				<ion-icon padding-top name="thermometer"></ion-icon>
