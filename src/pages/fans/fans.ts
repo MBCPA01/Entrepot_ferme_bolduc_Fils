@@ -16,9 +16,16 @@ export class FansPage {
   selectionEntrepot: string;
 
   constructor(private navCtrl: NavController,private firebaseRequest : FirebaseRequestProvider, private toast: ToastProvider) {
-    this.Fans = firebaseRequest.get('Fans');
+    this.Fans = firebaseRequest.get('Fans'+'/'+this.selectionEntrepot);
     this.selectionSection = '';
     this.selectionEntrepot = '';
+  }
+
+  onSelectEntrepotChange(selectionEntrepotChanged: any) {
+    this.selectionEntrepot = selectionEntrepotChanged;
+    console.log('Selected', selectionEntrepotChanged);
+    console.log(this.Fans);
+    
   }
 
   descriptionClicked(Index:number): Promise<any>{

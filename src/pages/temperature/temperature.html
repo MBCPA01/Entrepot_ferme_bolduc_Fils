@@ -35,8 +35,8 @@
 			<ion-item-sliding *ngFor="let capteur of Capteurs | async; let i = index;">
 					<ion-item>
 						<ion-icon padding-top name="thermometer"></ion-icon>
-						<button ion-button clear padding-top (click)="onClickItemList(capteur.Description, i+1)">Temperature sonde {{i+1}} :
-							{{capteur.value | json}} °C</button>
+						<button ion-button clear padding-top (click)="onClickItemList(capteur.Description, i+1)">Temperature sonde {{capteur.DescriptionCourte}} :
+							{{capteur.Temperature | json}} °C</button>
 					</ion-item>
 		
 					<ion-item-options>
