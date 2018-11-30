@@ -8,28 +8,34 @@
 
 
 <ion-content padding>
-		<ion-item>
-			<ion-label>Entrepot</ion-label>
-				<ion-select [(ngModel)]="selectionEntrepot">
-				<ion-option value="ep">Peribonka</ion-option>
-				<ion-option value="estm">St-Margerite</ion-option>
-				</ion-select>
-		</ion-item>
-		
-		<ion-item>	
-			<ion-label>Section</ion-label>
-				<ion-select [(ngModel)]="selectionSection">
-				<ion-option value="sv">Village</ion-option>
-				<ion-option value="sp">Pompe</ion-option>
+	<ion-item>
+		<ion-label>Entrepot</ion-label>
+		<ion-select [(ngModel)]="selectionEntrepot" (ionChange)="onSelectEntrepotChange($event)">
+		  <ion-option value="Peribonka">Peribonka</ion-option>
+		  <ion-option value="StMrg">St-Margerite</ion-option>
 		</ion-select>
 	</ion-item>
+	<ion-item>	
+		<ion-label>Section</ion-label>
+			<ion-select [(ngModel)]="selectionSection" (ionChange)="onSelectSectionChange($event)">
+				<div *ngIf="selectionEntrepot == 'Peribonka'">
+					<ion-option value="ABCD">Section ABCD</ion-option>
+					<ion-option value="EFG">Section EFG</ion-option>
+					<ion-option value="AutreP">Autre</ion-option>
+				</div>
+				<div *ngIf="selectionEntrepot == 'StMrg'">
+					<ion-option value="Pompe">Section Pompe</ion-option>
+					<ion-option value="Village">Section Village</ion-option>
+					<ion-option value="AutreSTM">Autre</ion-option>
+				</div>
+			</ion-select>	
+  	</ion-item>
 
 	<ion-list>
-		<div *ngIf="selectionEntrepot == 'ep' && selectionSection == 'sv'">		
 			<ion-item-sliding *ngFor="let fan of Fans | async; let i = index;">
 				<ion-item>
 					<img src="../../assets/imgs/fan.png" alt="fan" class="fan">
-					<button ion-button clear padding-top (click)="onClickItemList(fan.description, i+1)"> fan {{i+1}} : {{fan.value | json}}</button>
+					<button ion-button clear padding-top (click)="onClickItemList(fan.description, i+1)"> fan {{fan.DescriptionCourte}} : {{fan.Marche | json}}</button>
 				</ion-item>
 
 				<ion-item-options>
@@ -39,13 +45,6 @@
 					</button>
 				</ion-item-options>
 			</ion-item-sliding>
-		</div>
-
-		<div *ngIf="selectionEntrepot == 'ep' && selectionSection == 'sp'"></div>
-				
-		<div *ngIf="selectionEntrepot == 'estm' && selectionSection == 'sv'"></div>
-				
-		<div *ngIf="selectionEntrepot == 'estm' && selectionSection == 'sp'"></div>
 
 	</ion-list>
 </ion-content>

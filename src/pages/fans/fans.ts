@@ -28,8 +28,15 @@ export class FansPage {
     
   }
 
+  onSelectSectionChange(selectionSectionChanged: any) {
+    this.selectionSection = selectionSectionChanged;
+    console.log('Selected', selectionSectionChanged);
+    this.Fans = this.firebaseRequest.get('Fans'+'/'+this.selectionEntrepot+'/'+this.selectionSection)
+    
+  }
+
   descriptionClicked(Index:number): Promise<any>{
-    return this.navCtrl.push('DescriptionPage', { 'PrevPage' : 'FansPage','PageItem': 'Fans','idexParam': Index });
+    return this.navCtrl.push('DescriptionPage', { 'PrevPage' : 'FansPage','PageItem': 'Fans','idexParam': Index, 'SelectionVille': this.selectionEntrepot, 'SelectionSection': this.selectionSection });
   }
 
   onClickItemList(description:JSON, index:Number){
