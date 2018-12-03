@@ -34,9 +34,16 @@
 	<ion-list>
 			<ion-item-sliding *ngFor="let capteur of Capteurs | async; let i = index;">
 					<ion-item>
-						<ion-icon padding-top name="thermometer"></ion-icon>
-						<button ion-button clear padding-top (click)="onClickItemList(capteur.Description, i+1)">Temperature sonde {{capteur.DescriptionCourte}} :
-							{{capteur.Temperature | json}} °C</button>
+						<div *ngIf="capteur.Temperature >= '65000';else else_content">
+							<ion-icon padding-top name="thermometer"></ion-icon>
+							<button ion-button clear padding-top (click)="onClickItemList(capteur.Description, i+1)">Temperature sonde {{capteur.DescriptionCourte}} :
+								{{capteur.Temperature-65536 | json}} °C</button>
+						</div>
+						<ng-template #else_content>
+							<ion-icon padding-top name="thermometer"></ion-icon>
+							<button ion-button clear padding-top (click)="onClickItemList(capteur.Description, i+1)">Temperature sonde {{capteur.DescriptionCourte}} :
+								{{capteur.Temperature | json}} °C</button>
+						</ng-template>
 					</ion-item>
 		
 					<ion-item-options>
