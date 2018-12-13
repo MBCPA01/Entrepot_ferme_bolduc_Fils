@@ -35,7 +35,7 @@
 			<ion-item-sliding *ngFor="let fan of Fans | async; let i = index;">
 				<ion-item>
 					<img src="../../assets/imgs/fan.png" alt="fan" class="fan">
-					<button ion-button clear padding-top (click)="onClickItemList(fan.description, i+1)"> fan {{fan.DescriptionCourte}} : {{fan.Marche | json}}</button>
+					<button ion-button clear padding-top (click)="onClickItemList(fan.Description, i+1)"> fan {{fan.DescriptionCourte}} : {{fan.Marche | json}}</button>
 				</ion-item>
 
 				<ion-item-options>
