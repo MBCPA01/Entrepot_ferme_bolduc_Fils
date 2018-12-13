@@ -12,7 +12,8 @@
 		Entrer l'information que vous voulez modifier de l'item selectioner : {{indexFromTabs}}
 			<input type="text" [(ngModel)]="description" clear block>
 			<ion-buttons>
-				<button ion-button clear block color="primitive" (click)="modifyDescriptionClick(description, indexFromTabs)">
+				<button ion-button block outline color="primary" class="update-button" 
+        type="submit" (click)="modifyDescriptionClick(description, indexFromTabs)">
 					modifier
 				</button>
 			</ion-buttons>
