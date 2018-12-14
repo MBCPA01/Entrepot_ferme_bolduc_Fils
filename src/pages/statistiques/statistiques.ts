@@ -5,7 +5,10 @@ import { AngularFireDatabase } from 'angularfire2/database';
 import { Observable } from 'rxjs/Observable';
 import { ToastController } from 'ionic-angular/components/toast/toast-controller';
 import { Chart } from 'chart.js';
+import { FirebaseRequestProvider } from '../../providers/firebase-request/firebase-request';
 
+import 'rxjs/add/operator/take';
+import { empty } from 'rxjs';
 /**
  * Generated class for the StatistiquesPage page.
  *
@@ -20,6 +23,7 @@ import { Chart } from 'chart.js';
 })
 export class StatistiquesPage {
   data: Observable<any[]>;
+  dataObj: any;
   ref: any;
 
   indexFromTabs: number = 0;
@@ -27,26 +31,29 @@ export class StatistiquesPage {
   prevPage: string = "";
   description:string;
 
-  months = [
-    { value: 0, name: 'January' },
-    { value: 1, name: 'February' },
-    { value: 2, name: 'March' },
-    { value: 3, name: 'April' },
-  ];
+  items: Array<number>;
+  item: any;
 
-  transaction = {
-    value: 0,
-    expense: false,
-    month: 0
-  }
+
+  days = [
+    { value: 0, name: 'Lundi' },
+    { value: 1, name: 'Mardi' },
+    { value: 2, name: 'Mercredi' },
+    { value: 3, name: 'Jeudi' },
+    { value: 4, name: 'Vendredi' },
+    { value: 5, name: 'Samedi' },
+    { value: 6, name: 'Dimanche' },
+  ];
 
   @ViewChild('valueBarsCanvas') valueBarsCanvas;
   valueBarsChart: any;
 
-  chartData = null;
+  chartData = null
 
-  constructor(public navCtrl: NavController, public navParams: NavParams, private db: AngularFireDatabase, private toastCtrl: ToastController) {
-
+  constructor(public navCtrl: NavController, public navParams: NavParams, private db: AngularFireDatabase, private toastCtrl: ToastController, private myDb : FirebaseRequestProvider) {
+    this.dataObj = null;
+    this.item = '';
+    this.items = [];
     let data = navParams.get('idexParam');
   	if(data != null){
       this.indexFromTabs = navParams.get('idexParam');
@@ -58,7 +65,7 @@ export class StatistiquesPage {
 
   ionViewDidLoad() {
     // Reference to our Firebase List
-    this.ref = this.db.list('transactions', ref => ref.orderByChild('month'));
+    this.ref = this.db.list('test');
 
     // Catch any update to draw the Chart
     this.ref.valueChanges().subscribe(result => {
@@ -70,45 +77,30 @@ export class StatistiquesPage {
     })
   }
 
-  addTransaction() {
-    this.ref.push(this.transaction).then(() => {
-      this.transaction = {
-        value: 0,
-        month: 0,
-        expense: false
-      };
-      let toast = this.toastCtrl.create({
-        message: 'New Transaction added',
-        duration: 3000
-      });
-      toast.present();
-    })
-  }
-
   getReportValues() {
-    let reportByMonth = {
+    let reportBydays = {
       0: null,
       1: null,
       2: null,
-      3: null
-    };
-
-    for (let trans of this.chartData) {
-      if (reportByMonth[trans.month]) {
-        if (trans.expense) {
-          reportByMonth[trans.month] -= +trans.value;
-        } else {
-          reportByMonth[trans.month] += +trans.value;
-        }
-      } else {
-        if (trans.expense) {
-          reportByMonth[trans.month] = 0 - +trans.value;
-        } else {
-          reportByMonth[trans.month] = +trans.value;
-        }
-      }
+      3: null,
+      4: null,
+      5: null,
+      6: null
+     };
+    
+    for (let i=0; i<Object.keys(reportBydays).length; i++) {
+      this.myDb.getObj('test/days/'+i+'/temp').subscribe(snapshot => {
+        this.handleUserData(snapshot);
+        this.items[i] = this.item;        
+      });
     }
-    return Object.keys(reportByMonth).map(a => reportByMonth[a]);
+    console.log(this.items[0].value);
+      
+    return Object.keys(reportBydays).map(a => reportBydays[a]);
+  }
+
+  handleUserData(snapshot) {
+    this.item = snapshot;    
   }
 
   createCharts(data) {
@@ -121,9 +113,9 @@ export class StatistiquesPage {
     this.valueBarsChart = new Chart(this.valueBarsCanvas.nativeElement, {
       type: 'bar',
       data: {
-        labels: Object.keys(this.months).map(a => this.months[a].name),
+        labels: Object.keys(this.days).map(a => this.days[a].name),
         datasets: [{
-          data: chartData,
+          data: [0, 1, 2, 3, 4, 5, 6],
           backgroundColor: '#32db64'
         }]
       },
@@ -134,7 +126,7 @@ export class StatistiquesPage {
         tooltips: {
           callbacks: {
             label: function (tooltipItems, data) {
-              return data.datasets[tooltipItems.datasetIndex].data[tooltipItems.index] + ' $';
+              return data.datasets[tooltipItems.datasetIndex].data[tooltipItems.index] + '°C';
             }
           }
         },
@@ -147,7 +139,7 @@ export class StatistiquesPage {
           yAxes: [{
             ticks: {
               callback: function (value, index, values) {
-                return value + '$';
+                return value + '°C';
               },
               suggestedMin: 0
             }
