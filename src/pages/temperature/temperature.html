@@ -51,7 +51,7 @@
 							<ion-icon name="menu"></ion-icon>
 							Description
 						</button>
-						<button ion-button color="secondary" (click)="statsClicked(i+1)">
+						<button ion-button [disabled]="!isenabled" color="secondary" (click)="statsClicked(i+1)">
 							<ion-icon name="analytics"></ion-icon>
 							Statistiques
 						</button>
