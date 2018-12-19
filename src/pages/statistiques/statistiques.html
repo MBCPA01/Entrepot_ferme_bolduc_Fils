@@ -6,18 +6,24 @@
 
 </ion-header>
 
+<ion-content padding>
 
-<ion-content>
-
-
-
-  <ion-card [hidden]="!chartData">
-    <ion-card-header>
-      Donnees de la semaine
-    </ion-card-header>
-    <ion-card-content>
-      <canvas #valueBarsCanvas></canvas>
-    </ion-card-content>
-  </ion-card>
+  <div>
+    <section class="chart-wrapper">
+      <canvas #barChart></canvas>
+    </section>
+  </div>
+  
+  <div>
+    <section class="chart-wrapper">
+      <canvas #pieChart></canvas>
+    </section>  
+  </div>
+  
+  <div>
+    <section class="chart-wrapper">
+      <canvas #lineChart></canvas>
+    </section>  
+  </div>
 
 </ion-content>
